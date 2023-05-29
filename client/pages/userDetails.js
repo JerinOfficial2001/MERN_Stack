@@ -22,6 +22,11 @@ export default class userDetails extends Component {
       .then((data) => {
         console.log(data, "userData");
         this.setState({ userData: data.data });
+        if (data.data == "token expired") {
+          alert('token expired login again')
+          window.localStorage.clear();
+    window.location.href = "./login";
+        }
       });
   }
   logout = () => {

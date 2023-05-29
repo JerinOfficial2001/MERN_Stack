@@ -42,7 +42,7 @@ export default function Login({ setswifter }) {
         if (data.status == "ok") {
           alert("login sucess");
           window.localStorage.setItem("token", data.data);
-          window.localStorage.setItem("loggedIn", true);
+          window.localStorage.setItem("loggedIn", true );
           window.location.href = "./userDetails";
         }
       });
