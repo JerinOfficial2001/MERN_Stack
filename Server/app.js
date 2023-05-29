@@ -6,6 +6,9 @@ const cors = require("cors");
 app.use(cors());
 const bcrypt = require("bcryptjs");
 
+const jwt =require('jsonwebtoken')
+const JWT_SECRET="egfaGFT2723645896GHHJH[]FUGAYIUYWRETQ904hg4v987y3yv0.,<>jjreoighj>?hdajhf"
+
 const mongoURL =
   "mongodb+srv://jerin_25_01:jerin2001@cluster0.c0nwait.mongodb.net/?retryWrites=true&w=majority";
 
@@ -64,3 +67,39 @@ app.post("/register", async (req, res) => {
     res.send({ status: "error" });
   }
 });
+
+//login
+app.post("/login-user",async(req,res)=>{
+  const {email,password}=req.body
+  const user =await User.findOne({email})
+  if (!user) {
+    return res.json({error:'User Not Found'})
+  }
+  if (await bcrypt.compare(password,user.password)) {
+    const token =jwt.sign({email: user.email},JWT_SECRET,{
+      expiresIn:10
+    })
+    
+    if (res.status(201)) {
+      return res.json({status:"ok",data:token})
+
+    }else{
+      return res.json({status:'error'})
+    }
+  }
+  res.json({status:"error",error:'Invalid Password'})
+})
+
+//userData
+app.post("/userData",async(req,res)=>{
+  const {token}=req.body
+  try {
+    const user=jwt.verify(token,JWT_SECRET)
+    const useremail =user.email
+    User.findOne({email:useremail}).then((data)=>{
+      res.send({status:'ok',data:data})
+    })
+  } catch (error) {
+    
+  }
+})
