@@ -41,8 +41,9 @@ app.post("/register", async (req, res) => {
   const encryptedpassword = await bcrypt.hash(password, 10);
   try {
     const olduser =await User.findOne({ email });
+   
     if (
-      olduser
+      olduser 
     ) {
       return res.json({ error: "User Exists" });
     }
@@ -111,4 +112,51 @@ app.post("/userData",async(req,res)=>{
   } catch (error) {
     
   }
+})
+
+//reset
+
+app.post("/forget-password",async(req,res)=>{
+  const {email}=req.body
+  try {
+    const olduser =await User.findOne({ email });
+   
+    if (!olduser) {
+      return res.json({status:"User Not Exists!!"});
+    }
+    const secret =JWT_SECRET + olduser.password
+    const token =jwt.sign({email:olduser.email,id:olduser._id},secret,{
+      expiresIn:"5m",
+    })
+    const link=`http://localhost:5000/reset-password/${olduser._id}/${token}`
+    console.log(link);
+  }catch(error){
+
+  }
+  
+})
+app.get('reset-password/:id/:token',async(req,res)=>{
+  const {id,token}=req.params
+  console.log(req.params);
+  const olduser =await User.findOne({ _id: id });
+   
+  if (!olduser) {
+    return res.json({status:"User Not Exists!!"});
+  }
+  const secret =JWT_SECRET + olduser.password
+try {
+  const verify =jwt.verify(token,secret)
+  res.send("verified")
+} catch (error) {
+  res.send("not verified")
+}
+ 
+})
+app.get("getAllUsers",async(req,res)=>{
+try {
+  const allUsers =await User.findOne({})
+res.send({status:"ok",data:allUsers})
+} catch (error) {
+  console.log(error);
+}
 })

@@ -87,6 +87,7 @@ export default function Signup({ setswifter }) {
         window.confirmationResult = confirmationResult;
         alert("otp sended")
         setverifyOtp(true)
+        setverifyButton(false)
         // ...
       })
       .catch((error) => {
@@ -101,6 +102,7 @@ export default function Signup({ setswifter }) {
       const user = result.user;
       console.log(user );
       alert("verification Done")
+      setverifyOtp(false)
       // ...
     }).catch((error) => {
       // User couldn't sign in (bad verification code?)
