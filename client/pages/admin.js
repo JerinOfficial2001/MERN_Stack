@@ -1,15 +1,24 @@
-import { Box, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Box, Button, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 
 export default function admin() {
+  const [allDatas, setallDatas] = useState([])
     fetch("http://localhost:5000/admin",{
         method:"GET"
     }).then((res)=>{
         res.json
     }).then((data)=>{
-        data
+        setallDatas(data)
     })
+    // useEffect(() => {
+    
+    
+    //   return () => {
+    //     second
+    //   }
+    // }, [])
+    
  
     const [initialRenderComplete, setInitialRenderComplete] = useState(false);
 

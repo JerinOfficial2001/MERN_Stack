@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-export default function Login({ setswifter }) {
+export default function Login({ setSwifter }) {
   const [validator, setvalidator] = useState(false);
   const [inputData, setinputData] = useState({
     email: "",
@@ -109,8 +109,8 @@ export default function Login({ setswifter }) {
           <Stack direction="row">
             <Typography color="black">Don't have an account? </Typography>
             <div
-              onClick={() => {
-                setswifter(true);
+              onClick={() => { 
+                setSwifter(true);
               }}
               style={{ color: "#00b6d8", cursor: "pointer" }}
             >
