@@ -4,13 +4,16 @@ import Login from "./login";
 import userDetails from "./userDetails";
 
 export default function Home() {
-  const isLoggedIn = window.localStorage.getItem("loggedIn");
+  // const isLoggedIn = window.localStorage.getItem("loggedIn");
   const [swifter, setSwifter] = useState(false);
   return (
     <>
-      {isLoggedIn == "true" ? (
+      {/* {isLoggedIn == "true" ? (
         <userDetails />
-      ) : !swifter ? (
+      ) : } */}
+
+
+{!swifter ? (
         <Login setSwifter={setSwifter} />
       ) : (
         <Signup setSwifter={setSwifter} />
