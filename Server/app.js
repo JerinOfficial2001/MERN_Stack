@@ -7,7 +7,11 @@ app.use(cors());
 const bcrypt = require("bcryptjs");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
-require('dotenv').config()
+
+if (process.env.NODE_URL !="production") {
+  require('dotenv').config()
+}
+
 
 const jwt = require("jsonwebtoken");
 const JWT_SECRET =`${process.env.JWT_SECRET}`
@@ -21,7 +25,7 @@ mongoose
   })
   .catch((e) => console.log(e));
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(5000, () => {
   console.log("ready steady GO");
 });
 
