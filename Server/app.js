@@ -178,8 +178,9 @@ app.post("/reset-password/:id/:token", async (req, res) => {
 
 app.get("/getAllUsers",async(req,res)=>{
 try {
-  const allUsers =await User.findOne({})
-res.send({status:"ok",data:allUsers})
+//   const allUsers =await User.findOne({})
+// res.send({status:"ok",data:allUsers})
+res.send("hello mappi")
 } catch (error) {
   console.log(error);
 }
