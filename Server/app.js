@@ -21,7 +21,7 @@ mongoose
   })
   .catch((e) => console.log(e));
 
-app.listen(5000, () => {
+app.listen(process.env.PORT, () => {
   console.log("ready steady GO");
 });
 
