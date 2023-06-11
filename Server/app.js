@@ -175,11 +175,12 @@ app.post("/reset-password/:id/:token", async (req, res) => {
   }
 });
 
-// app.get("getAllUsers",async(req,res)=>{
-// try {
-//   const allUsers =await User.findOne({})
+app.get("/getAllUsers",async(req,res)=>{
+try {
+  // const allUsers =await User.findOne({})
 // res.send({status:"ok",data:allUsers})
-// } catch (error) {
-//   console.log(error);
-// }
-// })
+res.send("Hello")
+} catch (error) {
+  console.log(error);
+}
+})
