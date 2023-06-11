@@ -9,11 +9,9 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 
 const jwt = require("jsonwebtoken");
-const JWT_SECRET =
-  "egfaGFT2723645896GHHJH[]FUGAYIUYWRETQ904hg4v987y3yv0.,<>jjreoighj>?hdajhf";
+const JWT_SECRET = `${process.env.JWT_SECRET}`;
 
-const mongoURL =
-  "mongodb+srv://jerin_25_01:jerin2001@cluster0.c0nwait.mongodb.net/?retryWrites=true&w=majority";
+const mongoURL = `${process.env.MONGO}`;
 
 mongoose
   .connect(mongoURL)
