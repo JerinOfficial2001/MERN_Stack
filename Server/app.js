@@ -7,11 +7,12 @@ app.use(cors());
 const bcrypt = require("bcryptjs");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
+require('dotenv').config()
 
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = `${process.env.JWT_SECRET}`;
+const JWT_SECRET =`${process.env.JWT_SECRET}`
 
-const mongoURL = `${process.env.MONGO}`;
+const mongoURL =`${process.env.MONGO_URL}`
 
 mongoose
   .connect(mongoURL)
@@ -177,9 +178,8 @@ app.post("/reset-password/:id/:token", async (req, res) => {
 
 app.get("/getAllUsers",async(req,res)=>{
 try {
-  // const allUsers =await User.findOne({})
-// res.send({status:"ok",data:allUsers})
-res.send("Hello")
+  const allUsers =await User.findOne({})
+res.send({status:"ok",data:allUsers})
 } catch (error) {
   console.log(error);
 }
