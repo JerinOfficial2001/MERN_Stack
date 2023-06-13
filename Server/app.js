@@ -7,10 +7,11 @@ app.use(cors());
 const bcrypt = require("bcryptjs");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
+require('dotenv').config()
 
-if (process.env.NODE_URL !="production") {
-  require('dotenv').config()
-}
+// if (process.env.NODE_URL !="production") {
+  
+// }
 
 
 const jwt = require("jsonwebtoken");
