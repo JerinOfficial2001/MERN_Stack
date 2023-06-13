@@ -1,5 +1,5 @@
+import { loginUser } from "@/store/action/user";
 import {
-  
   Button,
   Container,
   FormControl,
@@ -7,9 +7,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Login({ setSwifter }) {
+  const router =useRouter()
   const [validator, setvalidator] = useState(false);
   const [inputData, setinputData] = useState({
     email: "",
@@ -26,26 +28,27 @@ export default function Login({ setSwifter }) {
     } else {
       setvalidator(true);
     }
-    await fetch("http://localhost:5000/login-user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data, "userRegister");
-        if (data.status == "ok") {
-          alert("login sucess");
-          window.localStorage.setItem("token", data.data);
-          window.localStorage.setItem("loggedIn", true );
-          window.location.href = "./userDetails";
-        }
-      });
+    // await fetch("http://localhost:5000/login-user", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     email,
+    //     password,
+    //   }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data, "userRegister");
+    //     if (data.status == "ok") {
+    //       alert("login sucess");
+    //       window.localStorage.setItem("token", data.data);
+    //       window.localStorage.setItem("loggedIn", true );
+    //       window.location.href = "./userDetails";
+    //     }
+    //   });
+   await loginUser(email,password)
   }; 
   return (
     <>
@@ -110,7 +113,7 @@ export default function Login({ setSwifter }) {
             <Typography color="black">Don't have an account? </Typography>
             <div
               onClick={() => { 
-                setSwifter(true);
+                router.push("/signup")
               }}
               style={{ color: "#00b6d8", cursor: "pointer" }}
             >

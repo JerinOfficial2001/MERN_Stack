@@ -14,10 +14,13 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from "firebase/auth";
+import { createUsers } from "@/store/action/user";
+import { useRouter } from "next/router";
 
 export default function Signup({ setswifter }) {
-  const [verifyButton, setverifyButton] = useState(false)
-  const [verifyOtp, setverifyOtp] = useState(false)
+  const router = useRouter();
+  const [verifyButton, setverifyButton] = useState(false);
+  const [verifyOtp, setverifyOtp] = useState(false);
 
   const [validator, setvalidator] = useState(false);
   const [inputData, setinputData] = useState({
@@ -25,40 +28,24 @@ export default function Signup({ setswifter }) {
     password: "",
     uname: "",
     phoneNo: "",
-        otp:''
+    otp: "",
   });
-  const { email, password, uname, phoneNo,otp} = inputData;
-  const submitHandler = async () => {
+  const { email, password, uname, phoneNo, otp } = inputData;
+  const submitHandler =  () => {
     if (email !== "" && password !== "" && uname !== "" && phoneNo !== "") {
       setinputData({
         email: "",
         password: "",
         uname: "",
         phoneNo: "",
-        otp:""
+        otp: "",
       });
       setvalidator(false);
     } else {
       setvalidator(true);
     }
-    await fetch("http://localhost:5000/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        uname,
-        email,
-        phoneNo,
-        password,
-        
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data, "userRegister");
-      });
-  };
+   createUsers(uname, email, phoneNo, password);
+  }
 
   const auth = getAuth();
   const onCatchVerify = () => {
@@ -70,14 +57,13 @@ export default function Signup({ setswifter }) {
           // reCAPTCHA solved, allow signInWithPhoneNumber.
           // ...
         },
-       
       },
       auth
     );
   };
 
   const onSignInSubmit = () => {
-    onCatchVerify()
+    onCatchVerify();
     const phoneNumber = "+91" + phoneNo;
     const appVerifier = window.recaptchaVerifier;
     signInWithPhoneNumber(auth, phoneNumber, appVerifier)
@@ -85,9 +71,9 @@ export default function Signup({ setswifter }) {
         // SMS sent. Prompt user to type the code from the message, then sign the
         // user in with confirmationResult.confirm(code).
         window.confirmationResult = confirmationResult;
-        alert("otp sended")
-        setverifyOtp(true)
-        setverifyButton(false)
+        alert("otp sended");
+        setverifyOtp(true);
+        setverifyButton(false);
         // ...
       })
       .catch((error) => {
@@ -95,34 +81,32 @@ export default function Signup({ setswifter }) {
         // ...
       });
   };
-  const verifyCode =()=>{
-   
-    window.confirmationResult.confirm(otp).then((result) => {
-      // User signed in successfully.
-      const user = result.user;
-      console.log(user );
-      alert("verification Done")
-      setverifyOtp(false)
-      // ...
-    }).catch((error) => {
-      // User couldn't sign in (bad verification code?)
-      // ...
-      alert('Invalid otp')
-    });
-    
-      }
-  const changeMobile =(e)=>{
-    setinputData({ ...inputData, phoneNo: e.target.value })
-      if (phoneNo.length == 9) {
-       
-          setverifyButton(true)
-      
-      }else{
-        setverifyButton(false)
-      }
-   
-  }
-  
+  const verifyCode = () => {
+    window.confirmationResult
+      .confirm(otp)
+      .then((result) => {
+        // User signed in successfully.
+        const user = result.user;
+        console.log(user);
+        alert("verification Done");
+        setverifyOtp(false);
+        // ...
+      })
+      .catch((error) => {
+        // User couldn't sign in (bad verification code?)
+        // ...
+        alert("Invalid otp");
+      });
+  };
+  const changeMobile = (e) => {
+    setinputData({ ...inputData, phoneNo: e.target.value });
+    if (phoneNo.length == 9) {
+      setverifyButton(true);
+    } else {
+      setverifyButton(false);
+    }
+  };
+
   return (
     <>
       <Container
@@ -144,7 +128,7 @@ export default function Signup({ setswifter }) {
             gap: 1,
             width: 390,
             background: "white",
-           padding:3,
+            padding: 3,
             borderRadius: 10,
           }}
         >
@@ -176,10 +160,17 @@ export default function Signup({ setswifter }) {
             value={phoneNo}
             label="Phone Number"
             onChange={(e) => {
-              changeMobile(e)
+              changeMobile(e);
             }}
           />
-         {verifyButton? <TextField onClick={onSignInSubmit} sx={{ width: "90%" }}  type="button" value="verify" /> : null}
+          {verifyButton ? (
+            <TextField
+              onClick={onSignInSubmit}
+              sx={{ width: "90%" }}
+              type="button"
+              value="verify"
+            />
+          ) : null}
           <TextField
             variant="outlined"
             sx={{ width: "90%" }}
@@ -190,7 +181,14 @@ export default function Signup({ setswifter }) {
               setinputData({ ...inputData, otp: e.target.value });
             }}
           />
-          {verifyOtp? <TextField onClick={verifyCode} sx={{ width: "90%" }}  type="button" value="OTP" />:null}
+          {verifyOtp ? (
+            <TextField
+              onClick={verifyCode}
+              sx={{ width: "90%" }}
+              type="button"
+              value="OTP"
+            />
+          ) : null}
 
           <TextField
             variant="outlined"
@@ -219,7 +217,7 @@ export default function Signup({ setswifter }) {
             <Typography color="black">Already have an account? </Typography>
             <div
               onClick={() => {
-                setswifter(false);
+                router.push("/login");
               }}
               style={{ color: "#00b6d8", cursor: "pointer" }}
             >

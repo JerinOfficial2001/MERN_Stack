@@ -14,26 +14,54 @@ export const getAllUsers = async () => {
 };
 
 //post
-export const createUsers = async (data) => {
+export const createUsers = async(uname, email, phoneNo, password) => {
   try {
-    const response = await axios
-      .post(`http://localhost:5000/register`, { data })
-      .then((res) => {
-        console.log(res);
-        console.log(res.data);
+    await fetch("http://localhost:5000/register",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        uname,
+        email,
+        phoneNo,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "userRegister");
       });
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.log(response);
-    }
-    //   method:"POST",
-    //   headers:{
-    //     "Content-Type":"application/json",
-    //     Accept:"application/json",
-    //     "Access-Control-Allow-Origin":"*"
-    //   },
   } catch (error) {
-    throw error;
+    console.log(error);
+  }
+};
+
+//get
+export const loginUser = (email, password) => {
+  try {
+    fetch("http://localhost:5000/login-user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "userRegister");
+        if (data.status == "ok") {
+          alert("login sucess");
+          window.localStorage.setItem("token", data.data);
+          window.localStorage.setItem("loggedIn", true);
+          window.location.href = "./userDetails";
+        }
+      });
+  } catch (error) {
+    console.log(error);
   }
 };
