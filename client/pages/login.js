@@ -28,26 +28,7 @@ export default function Login({ setSwifter }) {
     } else {
       setvalidator(true);
     }
-    // await fetch("http://localhost:5000/login-user", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     email,
-    //     password,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data, "userRegister");
-    //     if (data.status == "ok") {
-    //       alert("login sucess");
-    //       window.localStorage.setItem("token", data.data);
-    //       window.localStorage.setItem("loggedIn", true );
-    //       window.location.href = "./userDetails";
-    //     }
-    //   });
+
    await loginUser(email,password)
   }; 
   return (

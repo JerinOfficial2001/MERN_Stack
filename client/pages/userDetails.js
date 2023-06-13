@@ -9,7 +9,7 @@ export default class userDetails extends Component {
     };
   }
   componentDidMount() {
-    fetch("http://localhost:5000/userData", {
+     fetch("https://api.render.com/deploy/srv-ci2qs0e7avj2t35dq8dg?key=t2tak9T95LI/userData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -68,3 +68,71 @@ export default class userDetails extends Component {
     );
   }
 }
+
+
+
+// export default function userDetails()  {
+//   const [userData, setuserData] = useState([])
+//   useEffect(() => {
+//     fetch("http://localhost:5000/userData", {
+//        method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         token: window.localStorage.getItem("token"),
+//       }),
+//     })
+//       .then((res) => res.json())
+//       .then((data) => {
+//         console.log(data, "userData");
+//        setuserData(data)
+//         if (data.data == "token expired") {
+//           alert('token expired login again')
+//           window.localStorage.clear();
+//     window.location.href = "./login";
+//         }
+//       });
+//   }, [])
+
+//  const logout = () => {
+//     window.localStorage.clear();
+//     window.location.href = "./login";
+//   };
+//   const {data}=userData
+//   {
+//     return (
+//       <>
+//         <Container
+//           maxWidth="xl"
+//           sx={{
+//             display: "flex",
+//             justifyContent: "center",
+//             alignItems: "center",
+//             height: "100vh",
+//             width: "100%",
+//             gap: 5,
+//           }}
+//         >
+         
+//           {/* <div
+//             style={{
+//               background: "white",
+//               color: "black",
+//               padding: 10,
+//               borderRadius: 5,
+//               minWidth: 400,
+//             }}
+//           >
+//             Name<h1>{data.uname}</h1>
+//             Email<h1>{data.email}</h1>
+//             Contact<h1>{data.phoneNo}</h1>
+//             <Button onClick={logout} variant="outlined">
+//               Logout
+//             </Button>
+//           </div> */}
+//         </Container>
+//       </>
+//     );
+//   }
+// }

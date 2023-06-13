@@ -1,22 +1,15 @@
 import axios from "axios";
+import { Component } from "react";
 
-export const getAllUsers = async () => {
-  try {
-    const response = await axios.get("http://localhost:5000/register");
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.log(response);
-    }
-  } catch (error) {
-    throw error;
-  }
-};
 
-//post
+//userDetail
+
+
+
+//signup
 export const createUsers = async(uname, email, phoneNo, password) => {
   try {
-    await fetch("http://localhost:5000/register",
+    await fetch("https://api.render.com/deploy/srv-ci2qs0e7avj2t35dq8dg?key=t2tak9T95LI/register",
     {
       method: "POST",
       headers: {
@@ -38,10 +31,10 @@ export const createUsers = async(uname, email, phoneNo, password) => {
   }
 };
 
-//get
+//login
 export const loginUser = (email, password) => {
   try {
-    fetch("http://localhost:5000/login-user", {
+    fetch("https://api.render.com/deploy/srv-ci2qs0e7avj2t35dq8dg?key=t2tak9T95LI/login-user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
