@@ -9,7 +9,7 @@ export default class userDetails extends Component {
     };
   }
   componentDidMount() {
-     fetch("https://api.render.com/deploy/srv-ci2qs0e7avj2t35dq8dg?key=t2tak9T95LI/userData", {
+     fetch("https://mern-api-urxj.onrender.com/userData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

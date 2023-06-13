@@ -9,7 +9,7 @@ import { Component } from "react";
 //signup
 export const createUsers = async(uname, email, phoneNo, password) => {
   try {
-    await fetch("https://api.render.com/deploy/srv-ci2qs0e7avj2t35dq8dg?key=t2tak9T95LI/register",
+    await fetch("https://mern-api-urxj.onrender.com/register",
     {
       method: "POST",
       headers: {
@@ -34,7 +34,7 @@ export const createUsers = async(uname, email, phoneNo, password) => {
 //login
 export const loginUser = (email, password) => {
   try {
-    fetch("https://api.render.com/deploy/srv-ci2qs0e7avj2t35dq8dg?key=t2tak9T95LI/login-user", {
+    fetch("https://mern-api-urxj.onrender.com/login-user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
