@@ -1,7 +1,7 @@
 //signup
-export const createUsers = async (uname, email, phoneNo, password,UserType) => {
+export const createUsers = async (uname, email, phoneNo, password,userType) => {
   try {
-    await fetch("https://localhost:4000/register", {
+    await fetch("http://localhost:4000/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -11,7 +11,7 @@ export const createUsers = async (uname, email, phoneNo, password,UserType) => {
         email,
         phoneNo,
         password,
-        UserType
+        userType
       }),
     })
       .then((res) => res.json())

@@ -21,7 +21,7 @@ export default function Signup({ setswifter }) {
   const router = useRouter();
   const [verifyButton, setverifyButton] = useState(false);
   const [verifyOtp, setverifyOtp] = useState(false);
-
+const [secretCode, setsecretCode] = useState(false)
   const [validator, setvalidator] = useState(false);
   const [inputData, setinputData] = useState({
     email: "",
@@ -29,24 +29,29 @@ export default function Signup({ setswifter }) {
     uname: "",
     phoneNo: "",
     otp: "",
-    UserType:""
+    userType:"",
+    secretKey:""
   });
-  const { email, password, uname, phoneNo, otp,UserType } = inputData;
+  const { email, password, uname, phoneNo, otp,userType,secretKey } = inputData;
   const submitHandler = () => {
-    if (email !== "" && password !== "" && uname !== "" && phoneNo !== "") {
-      setinputData({
-        email: "",
-        password: "",
-        uname: "",
-        phoneNo: "",
-        otp: "",
-        UserType:""
-      });
-      setvalidator(false);
-    } else {
-      setvalidator(true);
+    if (userType=="Admin" && secretKey !="Jerin") {
+      alert("Invalid SecretKey")
+    }else{
+      if (email !== "" && password !== "" && uname !== "" && phoneNo !== "") {
+        setinputData({
+          email: "",
+          password: "",
+          uname: "",
+          phoneNo: "",
+          otp: "",
+          userType:""
+        });
+        setvalidator(false);
+      } else {
+        setvalidator(true);
+      }
+      createUsers(uname, email, phoneNo, password,userType);
     }
-    createUsers(uname, email, phoneNo, password,UserType);
   };
 
   const auth = getAuth();
@@ -134,25 +139,38 @@ export default function Signup({ setswifter }) {
             borderRadius: 10,
           }}
         >
+          <div id="recaptcha-container"></div>
           <div style={{color:'black'}}>
             Register as
             <input
               type="radio"
-              name="User"
-              value={UserType}
+              name="userType"
+              value="User"
               onChange={(e) => {
-                setinputData({ ...inputData, UserType: e.target.value });
+                setinputData({ ...inputData, userType: e.target.value });
               }}
             />User
             <input
               type="radio"
-              name="Admin"
-              value={UserType}
+              name="userType"
+              value="Admin"
               onChange={(e) => {
-                setinputData({ ...inputData, UserType: e.target.value });
+                setinputData({ ...inputData, userType: e.target.value });
               }}
             />Admin
           </div>
+          {userType=="Admin"? 
+          <TextField
+            variant="outlined"
+            sx={{ width: "90%" }}
+            type="text"
+            
+            label="Secret Key"
+            onChange={(e) => {
+              setinputData({ ...inputData, secretKey: e.target.value });
+            }}
+          />:null
+        }
           <TextField
             variant="outlined"
             sx={{ width: "90%" }}

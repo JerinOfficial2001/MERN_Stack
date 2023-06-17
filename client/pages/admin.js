@@ -3,23 +3,22 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 
 export default function Admin({userData}) {
-  const [data, setallDatas] = useState([])
+  const [allData, setallDatas] = useState([])
 
   const everyData =async()=>{
-    await fetch("http://localhost:4000",{
+    await fetch("http://localhost:4000/",{
         method:"GET"
-    }).then((res)=>{
-        res.json
-    }).then((data)=>{
+    }).then((res)=>
+        res.json()
+    ).then((data)=>{
       console.log(data,"userData");
-       setallDatas(data.data)
+      setallDatas(data.data)
     })
   }
    
     useEffect(() => {
       everyData()
     }, [])
-    
       const logout = () => {
             window.localStorage.clear();
             window.location.href = "./login";
@@ -57,16 +56,15 @@ export default function Admin({userData}) {
             <TableCell>Phone</TableCell>
         </TableRow>
         </TableHead>
-        {/* {data.map(i=>{
-          console.log(i);
+        {allData.map((i)=>{
           return(
-            <TableRow >
-            <TableCell></TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Phone</TableCell>
+            <TableRow key={i._id} >
+            <TableCell>{i.uname}</TableCell>
+            <TableCell>{i.email}</TableCell>
+            <TableCell>{i.phoneNo}</TableCell>
         </TableRow>
           )
-        })} */}
+        })}
        
         
           </Table>

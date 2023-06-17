@@ -2,8 +2,10 @@ import { Button, Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import UserHome from "./userHome";
 import Admin from "./admin";
+import { useRouter } from "next/router";
 
 export default function UserDetails() {
+  const router=useRouter()
   const [userData, setuserData] = useState("")
   const [admin, setadmin] = useState(false)
 const userInfo =async()=>{
@@ -20,10 +22,13 @@ const userInfo =async()=>{
       .then((res) => res.json())
       .then((data) => {
         console.log(data, "userData");
-        if (data.data.userType=="Admin") {
+       
+        setuserData(data.data);
+        
+
+        if (data.data.userType == "Admin") {
           setadmin(true)
         }
-        setuserData(data.data);
         if (data.data == "token expired") {
           alert('token expired login again')
           window.localStorage.clear();
@@ -36,9 +41,8 @@ useEffect(() => {
   userInfo()
 }, [])
 
-    return (
-      admin ?<Admin userData={userData}/>:<UserHome userData={userData}/>
-    );
+    return admin ? <Admin userData={userData}/>:<UserHome userData={userData}/>
+  
   }
 
 
