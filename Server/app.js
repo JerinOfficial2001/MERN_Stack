@@ -26,7 +26,7 @@ mongoose
   })
   .catch((e) => console.log(e));
 
-app.listen(5000, () => {
+app.listen(4000, () => {
   console.log("ready steady GO");
 });
 
@@ -72,7 +72,7 @@ app.post("/register", async (req, res) => {
 });
 
 //login
-app.post("/login-user", async (req, res) => {
+app.post("/login_user", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (!user) {
@@ -129,7 +129,7 @@ app.post("/forget-password", async (req, res) => {
     const token = jwt.sign({ email: olduser.email, id: olduser._id }, secret, {
       expiresIn: "5m",
     });
-    const link = `http://localhost:5000/reset-password/${olduser._id}/${token}`;
+    const link = `http://localhost:4000/reset-password/${olduser._id}/${token}`;
     console.log(link);
   } catch (error) {
     console.log(error);
@@ -183,9 +183,9 @@ app.post("/reset-password/:id/:token", async (req, res) => {
 
 app.get("/",async(req,res)=>{
 try {
-//   const allUsers =await User.findOne({})
-// res.send({status:"ok",data:allUsers})
-res.send("helloooooo")
+  const allUsers =await User.find({})
+res.send({status:"ok",data:allUsers})
+
 
 } catch (error) {
   console.log(error);

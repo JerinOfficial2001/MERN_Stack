@@ -11,14 +11,14 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Login({ setSwifter }) {
-  const router =useRouter()
+  const router = useRouter();
   const [validator, setvalidator] = useState(false);
   const [inputData, setinputData] = useState({
     email: "",
     password: "",
   });
   const { email, password } = inputData;
-  const submitHandler = async () => {
+  const submitHandler =  () => {
     if (email !== "" && password !== "") {
       setinputData({
         email: "",
@@ -29,8 +29,9 @@ export default function Login({ setSwifter }) {
       setvalidator(true);
     }
 
-   await loginUser(email,password)
-  }; 
+
+     loginUser(email, password);
+  };
   return (
     <>
       <Container
@@ -93,8 +94,8 @@ export default function Login({ setSwifter }) {
           <Stack direction="row">
             <Typography color="black">Don't have an account? </Typography>
             <div
-              onClick={() => { 
-                router.push("/signup")
+              onClick={() => {
+                router.push("/signup");
               }}
               style={{ color: "#00b6d8", cursor: "pointer" }}
             >

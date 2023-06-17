@@ -9,7 +9,7 @@ export default function Reset() {
         if(email !==""){
             
             console.log(email);
-            fetch("http://localhost:5000/forget-password",{
+            fetch("http://localhost:4000/forget-password",{
                 method:"POST",
                 headers:{
                     "content-Type":"application/json",

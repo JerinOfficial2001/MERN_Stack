@@ -1,16 +1,7 @@
-import axios from "axios";
-import { Component } from "react";
-
-
-//userDetail
-
-
-
 //signup
-export const createUsers = async(uname, email, phoneNo, password) => {
+export const createUsers = async (uname, email, phoneNo, password,UserType) => {
   try {
-    await fetch("https://mern-api-urxj.onrender.com/register",
-    {
+    await fetch("https://localhost:4000/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,6 +11,7 @@ export const createUsers = async(uname, email, phoneNo, password) => {
         email,
         phoneNo,
         password,
+        UserType
       }),
     })
       .then((res) => res.json())
@@ -32,9 +24,9 @@ export const createUsers = async(uname, email, phoneNo, password) => {
 };
 
 //login
-export const loginUser = (email, password) => {
+export const loginUser = async(email, password) => {
   try {
-    fetch("https://mern-api-urxj.onrender.com/login-user", {
+   await fetch("http://localhost:4000/login_user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

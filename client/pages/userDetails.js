@@ -1,18 +1,17 @@
 import { Button, Container } from "@mui/material";
-import React, { Component } from "react";
+import { useEffect, useState } from "react";
+import UserHome from "./userHome";
+import Admin from "./admin";
 
-export default class userDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userData: "",
-    };
-  }
-  componentDidMount() {
-     fetch("https://mern-api-urxj.onrender.com/userData", {
+export default function UserDetails() {
+  const [userData, setuserData] = useState("")
+  const [admin, setadmin] = useState(false)
+const userInfo =async()=>{
+  await fetch("http://localhost:4000/userData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Accept:"application/json"
       },
       body: JSON.stringify({
         token: window.localStorage.getItem("token"),
@@ -21,7 +20,10 @@ export default class userDetails extends Component {
       .then((res) => res.json())
       .then((data) => {
         console.log(data, "userData");
-        this.setState({ userData: data.data });
+        if (data.data.userType=="Admin") {
+          setadmin(true)
+        }
+        setuserData(data.data);
         if (data.data == "token expired") {
           alert('token expired login again')
           window.localStorage.clear();
@@ -29,45 +31,16 @@ export default class userDetails extends Component {
         }
       });
   }
-  logout = () => {
-    window.localStorage.clear();
-    window.location.href = "./login";
-  };
-  render() {
+
+useEffect(() => {
+  userInfo()
+}, [])
+
     return (
-      <>
-        <Container
-          maxWidth="xl"
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-            width: "100%",
-            gap: 5,
-          }}
-        >
-          <div
-            style={{
-              background: "white",
-              color: "black",
-              padding: 10,
-              borderRadius: 5,
-              minWidth: 400,
-            }}
-          >
-            Name<h1>{this.state.userData.uname}</h1>
-            Email<h1>{this.state.userData.email}</h1>
-            Contact<h1>{this.state.userData.phoneNo}</h1>
-            <Button onClick={this.logout} variant="outlined">
-              Logout
-            </Button>
-          </div>
-        </Container>
-      </>
+      admin ?<Admin userData={userData}/>:<UserHome userData={userData}/>
     );
   }
-}
+
 
 
 

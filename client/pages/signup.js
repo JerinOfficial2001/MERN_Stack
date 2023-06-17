@@ -29,9 +29,10 @@ export default function Signup({ setswifter }) {
     uname: "",
     phoneNo: "",
     otp: "",
+    UserType:""
   });
-  const { email, password, uname, phoneNo, otp } = inputData;
-  const submitHandler =  () => {
+  const { email, password, uname, phoneNo, otp,UserType } = inputData;
+  const submitHandler = () => {
     if (email !== "" && password !== "" && uname !== "" && phoneNo !== "") {
       setinputData({
         email: "",
@@ -39,13 +40,14 @@ export default function Signup({ setswifter }) {
         uname: "",
         phoneNo: "",
         otp: "",
+        UserType:""
       });
       setvalidator(false);
     } else {
       setvalidator(true);
     }
-   createUsers(uname, email, phoneNo, password);
-  }
+    createUsers(uname, email, phoneNo, password,UserType);
+  };
 
   const auth = getAuth();
   const onCatchVerify = () => {
@@ -132,7 +134,25 @@ export default function Signup({ setswifter }) {
             borderRadius: 10,
           }}
         >
-          <div id="recaptcha-container"></div>
+          <div style={{color:'black'}}>
+            Register as
+            <input
+              type="radio"
+              name="User"
+              value={UserType}
+              onChange={(e) => {
+                setinputData({ ...inputData, UserType: e.target.value });
+              }}
+            />User
+            <input
+              type="radio"
+              name="Admin"
+              value={UserType}
+              onChange={(e) => {
+                setinputData({ ...inputData, UserType: e.target.value });
+              }}
+            />Admin
+          </div>
           <TextField
             variant="outlined"
             sx={{ width: "90%" }}
