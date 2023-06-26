@@ -8,6 +8,7 @@ const bcrypt = require("bcryptjs");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 require("dotenv").config();
+
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -178,7 +179,7 @@ app.post("/reset-password/:id/:token", async (req, res) => {
   }
 });
 
-app.get("/", async (req, res) => {
+app.get("/product", async (req, res) => {
   try {
     const allUsers = await User.find({});
     res.send({ status: "ok", data: allUsers });
