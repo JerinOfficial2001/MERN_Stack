@@ -7,24 +7,20 @@ app.use(cors());
 const bcrypt = require("bcryptjs");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
-
-
-if (process.env.NODE_URL !="production") {
-  require('dotenv').config()
-}
-
-
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const JWT_SECRET =`${process.env.JWT_SECRET}`
+const JWT_SECRET = process.env.JWT_SECRET;
 
-const mongoURL =`${process.env.MONGO_URL}`
+const mongoURL = `${process.env.MONGO_URL}`;
 
 mongoose
-  .connect(mongoURL)
+  .connect(`${mongoURL}`)
   .then(() => {
     console.log("connected to database");
   })
   .catch((e) => console.log(e));
+
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
   console.log("ready steady GO");
@@ -44,7 +40,7 @@ require("./models/userDetails");
 
 const User = mongoose.model("UserInfo");
 app.post("/register", async (req, res) => {
-  const { uname, email, phoneNo, password,userType } = req.body;
+  const { uname, email, phoneNo, password, userType } = req.body;
   const encryptedpassword = await bcrypt.hash(password, 10);
   try {
     const olduser = await User.findOne({ email });
@@ -58,7 +54,7 @@ app.post("/register", async (req, res) => {
         email,
         phoneNo,
         password: encryptedpassword,
-        userType
+        userType,
       });
       console.log(req.body);
       res.send(req.body);
@@ -182,13 +178,11 @@ app.post("/reset-password/:id/:token", async (req, res) => {
   }
 });
 
-app.get("/",async(req,res)=>{
-try {
-  const allUsers =await User.find({})
-res.send({status:"ok",data:allUsers})
-
-
-} catch (error) {
-  console.log(error);
-}
-})
+app.get("/", async (req, res) => {
+  try {
+    const allUsers = await User.find({});
+    res.send({ status: "ok", data: allUsers });
+  } catch (error) {
+    console.log(error);
+  }
+});
