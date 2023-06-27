@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Login({ setSwifter }) {
+  
   const router = useRouter();
   const [validator, setvalidator] = useState(false);
   const [inputData, setinputData] = useState({

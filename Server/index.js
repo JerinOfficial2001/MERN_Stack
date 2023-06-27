@@ -9,11 +9,15 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 require("dotenv").config();
 
+
+
+
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
-
-const mongoURL = `${process.env.MONGO_URL}`;
-
+const mongoURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:4000"
+    : process.env.MONGO_URL;
 mongoose
   .connect(`${mongoURL}`)
   .then(() => {

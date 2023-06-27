@@ -6,7 +6,7 @@ export default function Admin({userData}) {
   const [allData, setallDatas] = useState([])
 
   const everyData =async()=>{
-    await fetch("http://localhost:4000/",{
+    await fetch("http://localhost:4000/product",{
         method:"GET"
     }).then((res)=>
         res.json()
