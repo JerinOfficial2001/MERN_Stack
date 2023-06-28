@@ -7,7 +7,8 @@ app.use(cors());
 const bcrypt = require("bcryptjs");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
-require("dotenv").config();
+const dotenv =require("dotenv")
+dotenv.config();
 
 
 
