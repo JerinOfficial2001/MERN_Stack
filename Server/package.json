@@ -18,5 +18,8 @@
   },
   "author": "jj",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "vercel": "^30.2.3"
+  }
 }

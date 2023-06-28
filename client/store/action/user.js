@@ -1,3 +1,5 @@
+import { toast } from "react-hot-toast";
+
 //signup
 export const createUsers = async (uname, email, phoneNo, password,userType) => {
   try {
@@ -40,7 +42,7 @@ export const loginUser = async(email, password) => {
       .then((data) => {
         console.log(data, "userRegister");
         if (data.status == "ok") {
-          alert("login sucess");
+          toast.success("Successfully Logged In");
           window.localStorage.setItem("token", data.data);
           window.localStorage.setItem("loggedIn", true);
           window.location.href = "./userDetails";

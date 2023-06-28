@@ -8,10 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 export default function Login({ setSwifter }) {
-  
   const router = useRouter();
   const [validator, setvalidator] = useState(false);
   const [inputData, setinputData] = useState({
@@ -19,7 +19,7 @@ export default function Login({ setSwifter }) {
     password: "",
   });
   const { email, password } = inputData;
-  const submitHandler =  () => {
+  const submitHandler = () => {
     if (email !== "" && password !== "") {
       setinputData({
         email: "",
@@ -30,8 +30,7 @@ export default function Login({ setSwifter }) {
       setvalidator(true);
     }
 
-
-     loginUser(email, password);
+    loginUser(email, password);
   };
   return (
     <>
@@ -45,6 +44,7 @@ export default function Login({ setSwifter }) {
           width: "100%",
         }}
       >
+        <Toaster position="top-center" reverseOrder={false} />
         <FormControl
           sx={{
             display: "flex",

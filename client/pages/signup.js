@@ -16,6 +16,7 @@ import {
 } from "firebase/auth";
 import { createUsers } from "@/store/action/user";
 import { useRouter } from "next/router";
+import { Toaster, toast } from "react-hot-toast";
 
 export default function Signup({ setswifter }) {
   const router = useRouter();
@@ -35,7 +36,7 @@ const [secretCode, setsecretCode] = useState(false)
   const { email, password, uname, phoneNo, otp,userType,secretKey } = inputData;
   const submitHandler = () => {
     if (userType=="Admin" && secretKey !="Jerin") {
-      alert("Invalid SecretKey")
+      toast.error("Invalid SecretKey");
     }else{
       if (email !== "" && password !== "" && uname !== "" && phoneNo !== "") {
         setinputData({
@@ -78,7 +79,7 @@ const [secretCode, setsecretCode] = useState(false)
         // SMS sent. Prompt user to type the code from the message, then sign the
         // user in with confirmationResult.confirm(code).
         window.confirmationResult = confirmationResult;
-        alert("otp sended");
+        toast.success("otp send");
         setverifyOtp(true);
         setverifyButton(false);
         // ...
@@ -95,14 +96,15 @@ const [secretCode, setsecretCode] = useState(false)
         // User signed in successfully.
         const user = result.user;
         console.log(user);
-        alert("verification Done");
+        toast.success("verification Done");
         setverifyOtp(false);
         // ...
       })
       .catch((error) => {
         // User couldn't sign in (bad verification code?)
         // ...
-        alert("Invalid otp");
+        toast.error("Invalid otp");
+      
       });
   };
   const changeMobile = (e) => {
@@ -126,6 +128,7 @@ const [secretCode, setsecretCode] = useState(false)
           width: "100%",
         }}
       >
+        <Toaster position="top-center" reverseOrder={false} />
         <FormControl
           sx={{
             display: "flex",
@@ -140,7 +143,7 @@ const [secretCode, setsecretCode] = useState(false)
           }}
         >
           <div id="recaptcha-container"></div>
-          <div style={{color:'black'}}>
+          <div style={{ color: "black" }}>
             Register as
             <input
               type="radio"
@@ -149,7 +152,8 @@ const [secretCode, setsecretCode] = useState(false)
               onChange={(e) => {
                 setinputData({ ...inputData, userType: e.target.value });
               }}
-            />User
+            />
+            User
             <input
               type="radio"
               name="userType"
@@ -157,20 +161,20 @@ const [secretCode, setsecretCode] = useState(false)
               onChange={(e) => {
                 setinputData({ ...inputData, userType: e.target.value });
               }}
-            />Admin
+            />
+            Admin
           </div>
-          {userType=="Admin"? 
-          <TextField
-            variant="outlined"
-            sx={{ width: "90%" }}
-            type="text"
-            
-            label="Secret Key"
-            onChange={(e) => {
-              setinputData({ ...inputData, secretKey: e.target.value });
-            }}
-          />:null
-        }
+          {userType == "Admin" ? (
+            <TextField
+              variant="outlined"
+              sx={{ width: "90%" }}
+              type="text"
+              label="Secret Key"
+              onChange={(e) => {
+                setinputData({ ...inputData, secretKey: e.target.value });
+              }}
+            />
+          ) : null}
           <TextField
             variant="outlined"
             sx={{ width: "90%" }}

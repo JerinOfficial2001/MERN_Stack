@@ -6,14 +6,14 @@ export default function Admin({userData}) {
   const [allData, setallDatas] = useState([])
 
   const everyData =async()=>{
-    await fetch("http://localhost:4000/product",{
-        method:"GET"
-    }).then((res)=>
-        res.json()
-    ).then((data)=>{
-      console.log(data,"userData");
-      setallDatas(data.data)
+    await fetch("http://localhost:4000/product", {
+      method: "GET",
     })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "userData");
+        setallDatas(data.data);
+      });
   }
    
     useEffect(() => {

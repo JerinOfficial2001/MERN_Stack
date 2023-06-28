@@ -8,17 +8,16 @@ const bcrypt = require("bcryptjs");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 const dotenv =require("dotenv")
-dotenv.config();
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
+}
 
 
 
 
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
-const mongoURL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:4000"
-    : process.env.MONGO_URL;
+const mongoURL =process.env.MONGO_URL;
 mongoose
   .connect(`${mongoURL}`)
   .then(() => {
