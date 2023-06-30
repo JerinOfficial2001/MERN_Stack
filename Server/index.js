@@ -7,7 +7,8 @@ app.use(cors());
 const bcrypt = require("bcryptjs");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
-const dotenv =require("dotenv")
+const dotenv = require("dotenv");
+dotenv.config();
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 }
