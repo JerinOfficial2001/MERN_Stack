@@ -17,8 +17,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon server.js",
-    "vercel-build": "echo hello"
+    "dev": "nodemon server.js"
   },
   "author": "jj",
   "license": "ISC",
