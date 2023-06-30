@@ -5,15 +5,17 @@ import Admin from "./admin";
 import { useRouter } from "next/router";
 
 export default function UserDetails() {
-  const router=useRouter()
-  const [userData, setuserData] = useState("")
-  const [admin, setadmin] = useState(false)
-const userInfo =async()=>{
-  await fetch("http://localhost:4000/userData", {
+  const router = useRouter();
+  const [userData, setuserData] = useState("");
+  const [admin, setadmin] = useState(false);
+  const userInfo = async () => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    await fetch(API_URL + "/userData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept:"application/json"
+        Accept: "application/json",
       },
       body: JSON.stringify({
         token: window.localStorage.getItem("token"),
@@ -22,31 +24,30 @@ const userInfo =async()=>{
       .then((res) => res.json())
       .then((data) => {
         console.log(data, "userData");
-       
+
         setuserData(data.data);
-        
 
         if (data.data.userType == "Admin") {
-          setadmin(true)
+          setadmin(true);
         }
         if (data.data == "token expired") {
-          alert('token expired login again')
+          alert("token expired login again");
           window.localStorage.clear();
-    window.location.href = "./login";
+          window.location.href = "./login";
         }
       });
-  }
+  };
 
-useEffect(() => {
-  userInfo()
-}, [])
+  useEffect(() => {
+    userInfo();
+  }, []);
 
-    return admin ? <Admin userData={userData}/>:<UserHome userData={userData}/>
-  
-  }
-
-
-
+  return admin ? (
+    <Admin userData={userData} />
+  ) : (
+    <UserHome userData={userData} />
+  );
+}
 
 // export default function userDetails()  {
 //   const [userData, setuserData] = useState([])
@@ -91,7 +92,7 @@ useEffect(() => {
 //             gap: 5,
 //           }}
 //         >
-         
+
 //           {/* <div
 //             style={{
 //               background: "white",

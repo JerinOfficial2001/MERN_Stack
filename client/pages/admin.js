@@ -14,9 +14,9 @@ import React, { useEffect, useState } from "react";
 
 export default function Admin({ userData }) {
   const [allData, setallDatas] = useState([]);
-
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const everyData = async () => {
-    await fetch("http://localhost:4000", {
+    await fetch(`${API_URL}`, {
       method: "GET",
     })
       .then((res) => res.json())

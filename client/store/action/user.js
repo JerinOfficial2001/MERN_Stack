@@ -1,9 +1,17 @@
 import { toast } from "react-hot-toast";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 //signup
-export const createUsers = async (uname, email, phoneNo, password,userType) => {
+export const createUsers = async (
+  uname,
+  email,
+  phoneNo,
+  password,
+  userType
+) => {
   try {
-    await fetch("http://localhost:4000/register", {
+    await fetch(API_URL + "/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -13,7 +21,7 @@ export const createUsers = async (uname, email, phoneNo, password,userType) => {
         email,
         phoneNo,
         password,
-        userType
+        userType,
       }),
     })
       .then((res) => res.json())
@@ -26,9 +34,9 @@ export const createUsers = async (uname, email, phoneNo, password,userType) => {
 };
 
 //login
-export const loginUser = async(email, password) => {
+export const loginUser = async (email, password) => {
   try {
-   await fetch("http://localhost:4000/login_user", {
+    await fetch(API_URL + "/login_user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
