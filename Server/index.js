@@ -126,7 +126,7 @@ app.post("/forget-password", async (req, res) => {
     }
     const secret = JWT_SECRET + olduser.password;
     const token = jwt.sign({ email: olduser.email, id: olduser._id }, secret, {
-      expiresIn: "5m",
+      // expiresIn: "5m",
     });
     const link = `http://localhost:4000/reset-password/${olduser._id}/${token}`;
     console.log(link);
