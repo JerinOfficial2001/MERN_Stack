@@ -16,7 +16,7 @@ export default function Admin({ userData }) {
   const [allData, setallDatas] = useState([]);
 
   const everyData = async () => {
-    await fetch("mern-stack-api-navy.vercel.app/product", {
+    await fetch("http://localhost:4000", {
       method: "GET",
     })
       .then((res) => res.json())
