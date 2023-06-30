@@ -180,10 +180,11 @@ app.post("/reset-password/:id/:token", async (req, res) => {
   }
 });
 
-app.get("/product", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
-    const allUsers = await User.find({});
-    res.send({ status: "ok", data: allUsers });
+    res.send("hey bro")
+    // const allUsers = await User.find({});
+    // res.send({ status: "ok", data: allUsers });
   } catch (error) {
     console.log(error);
   }
