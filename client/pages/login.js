@@ -13,6 +13,7 @@ import { Toaster } from "react-hot-toast";
 
 export default function Login({ setSwifter }) {
   const router = useRouter();
+
   const [validator, setvalidator] = useState(false);
   const [inputData, setinputData] = useState({
     email: "",
@@ -32,6 +33,7 @@ export default function Login({ setSwifter }) {
 
     loginUser(email, password);
   };
+
   return (
     <>
       <Container
