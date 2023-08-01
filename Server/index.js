@@ -8,6 +8,7 @@ const bcrypt = require("bcryptjs");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 const projects = require("./routes/projects");
+
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 }
@@ -42,6 +43,15 @@ require("./models/userDetails");
 
 const User = mongoose.model("UserInfo");
 const Note = mongoose.model("NotesInfo");
+
+app.get("/", async (req, res) => {
+  try {
+    const allUsers = await User.find({});
+    res.send({ status: "ok", data: allUsers });
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 app.post("/add", async (req, res) => {
   const { note, id } = req.body;
@@ -196,13 +206,4 @@ app.post("/reset-password/:id/:token", async (req, res) => {
   }
 });
 
-app.get("/", async (req, res) => {
-  try {
-    const allUsers = await User.find({});
-    res.send({ status: "ok", data: allUsers });
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-app.use("/portfolio", projects);
+app.use("/portfolio/projects", projects);
