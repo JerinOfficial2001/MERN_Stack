@@ -205,4 +205,4 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.use("/portfolio/projects", projects);
+app.use("/portfolio", projects);
