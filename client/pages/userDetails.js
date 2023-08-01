@@ -11,11 +11,11 @@ export default function UserDetails() {
   const userInfo = async () => {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-    await fetch(API_URL + "/userData", {
+    await fetch("http://localhost:4000/userData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: "application/json", 
       },
       body: JSON.stringify({
         token: window.localStorage.getItem("token"),

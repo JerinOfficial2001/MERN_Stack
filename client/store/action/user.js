@@ -36,7 +36,7 @@ export const createUsers = async (
 //login
 export const loginUser = async (email, password) => {
   try {
-    await fetch(API_URL + "/login_user", {
+    await fetch("http://localhost:4000/login_user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

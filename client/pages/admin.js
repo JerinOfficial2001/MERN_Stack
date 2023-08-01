@@ -13,10 +13,11 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 export default function Admin({ userData }) {
+
   const [allData, setallDatas] = useState([]);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const everyData = async () => {
-    await fetch(`${API_URL}`, {
+    await fetch("http://localhost:4000", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -33,6 +34,9 @@ export default function Admin({ userData }) {
     window.localStorage.clear();
     window.location.href = "./login";
   };
+
+  
+
   return (
     <Container
       maxWidth="xl"
@@ -55,8 +59,10 @@ export default function Admin({ userData }) {
           padding: 5,
           position: "relative",
           color: "black",
+          flexDirection: "column",
         }}
       >
+       
         <TableContainer>
           <Table sx={{ minWidth: 650 }}>
             <TableHead>
@@ -67,6 +73,7 @@ export default function Admin({ userData }) {
               </TableRow>
             </TableHead>
             {allData.map((i) => {
+             
               return (
                 <TableRow key={i._id}>
                   <TableCell>{i.uname}</TableCell>
